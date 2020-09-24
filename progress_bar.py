@@ -1,10 +1,7 @@
 import sys
 
-try:
-    from IPython.display import clear_output
-    have_ipython = True
-except ImportError:
-    have_ipython = False
+from py_shell import is_in_ipython
+have_ipython = is_in_ipython()
 
 class ProgressBar:
     """This progress bar was taken from PYMC
@@ -24,7 +21,7 @@ class ProgressBar:
         self.animate_ipython(iter)
 
     def animate_ipython(self, iter):
-        #print('\r', self)
+        print('\r', self)
         sys.stdout.flush()
         self.update_iteration(iter + 1)
 

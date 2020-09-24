@@ -1,6 +1,9 @@
+from py_shell import is_in_ipython
+
 print("-------------------------------- section 1")
 from IPython.display import Image
 Image('images/dtw_knn_schematic.png', width=780)
+    
 
 print("-------------------------------- section 2")
 Image('images/max_window_warping.png')
@@ -34,6 +37,8 @@ _ = plt.title('DTW distance between A and B is %.2f' % distance)
 _ = plt.ylabel('Amplitude')
 _ = plt.xlabel('Time')
 _ = plt.legend()
+if is_in_ipython():
+    plt.show()
 
 print("-------------------------------- section 5")
 m._dist_matrix(np.random.random((4,50)), np.random.random((4,50)))
@@ -89,7 +94,8 @@ for i, r in enumerate([0,27,65,100,145,172]):
     plt.xlabel('Samples @50Hz')
     plt.legend(loc='upper left')
     plt.tight_layout()
-
+if is_in_ipython():
+    plt.show()
 
 print("-------------------------------- section 9")
 skip_ratio = 100
@@ -123,4 +129,5 @@ cb = fig.colorbar(res)
 plt.title('Confusion Matrix')
 _ = plt.xticks(range(6), [l for l in labels.values()], rotation=90)
 _ = plt.yticks(range(6), [l for l in labels.values()])
-
+if is_in_ipython():
+    plt.show()

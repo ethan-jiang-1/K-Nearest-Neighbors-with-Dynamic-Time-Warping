@@ -45,7 +45,8 @@ import time
 
 time_taken = []
 #windows = [1,2,5,10,50,100,500,1000,5000]
-windows = [1,2,5,10,50,100,200,500]
+#windows = [1,2,5,10,50,100,200,500]
+windows = [1,2,5,10,50]
 
 for w in windows:
     print("window size {}".format(w))
@@ -64,3 +65,7 @@ plt.title('DTW Execution Time with \nvarying Max Warping Window')
 plt.ylabel('Execution Time (seconds)')
 plt.xlabel('Max Warping Window')
 plt.xscale('log')
+
+from py_shell import is_in_ipython
+if is_in_ipython():
+    plt.show()
