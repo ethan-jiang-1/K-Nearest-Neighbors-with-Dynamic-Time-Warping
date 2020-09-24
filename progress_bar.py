@@ -3,6 +3,7 @@ import sys
 from py_shell import is_in_ipython
 have_ipython = is_in_ipython()
 
+
 class ProgressBar:
     """This progress bar was taken from PYMC
     """
@@ -41,4 +42,3 @@ class ProgressBar:
 
     def __str__(self):
         return str(self.prog_bar)
-
