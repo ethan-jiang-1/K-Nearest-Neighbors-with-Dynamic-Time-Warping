@@ -1,6 +1,5 @@
 import sys
 import numpy as np
-
 from scipy.spatial.distance import squareform
 from scipy.stats import mode
 
