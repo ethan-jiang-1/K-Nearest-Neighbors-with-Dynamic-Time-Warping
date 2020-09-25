@@ -45,7 +45,7 @@ colors = ['#D62728','#2C9F2C','#FD7F23','#1F77B4','#9467BD',
 
 for i, r in enumerate([0,27,65,100,145,172]):
     plt.subplot(3,2,i+1)
-    plt.plot(x_train[r][:100], label=labels[y_train[r]], color=colors[i], linewidth=2)
+    plt.plot(x_train[r], label=labels[y_train[r]], color=colors[i], linewidth=2)
     plt.xlabel('Samples @50Hz')
     plt.legend(loc='upper left')
     plt.tight_layout()
