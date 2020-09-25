@@ -1,8 +1,22 @@
+import os
+import sys
+import signal
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import butter, lfilter
 from knn_dtw import KnnDtw
 plt.style.use('bmh')
+
+
+def signal_exit_handler(sig, frame):
+    msg = 'Stop Running as SIGINT/SIGTERM received'
+    print(msg)
+    sys.exit(0)
+    
+
+# signal.signal(signal.SIGINT, signal_exit_handler)
+# signal.signal(signal.SIGTERM, signal_exit_handler)
+
 
 def butter_bandpass(lowcut, highcut, fs, order=5):
     nyq = 0.5 * fs
@@ -19,11 +33,12 @@ def butter_bandpass_filter(data, lowcut, highcut, fs, order=3):
 
 
 def filter_raw(acc_raw):
-    lowcut = 5.0
-    highcut = 2000.0
+    lowcut = 5.0 # HZ
+    highcut = 2000.0 # HZ
     fs = 50.0 * 128  # 128 points /(1/50) # samples(total points) / T (total time length)
     filter_raw = butter_bandpass_filter(acc_raw, lowcut, highcut, fs, order=3)
     return filter_raw
+
 
 x_acc_raw_file = open('data/UCI-HAR-Dataset/train/InertialSignals/body_acc_x_train.txt', 'r')
 y_acc_raw_file = open('data/UCI-HAR-Dataset/train/InertialSignals/body_acc_y_train.txt', 'r')
@@ -59,7 +74,7 @@ fs = 50.0
 nsamples = 128
 T = nsamples/fs
 t = np.linspace(0, T, nsamples, endpoint=False)
-plt.figure(figsize=(11,7))
+plt.figure(figsize=(16,8))
 for i, r in enumerate([0,27,65,0,27,65]):
     ndx = r
     label_pre = labels[y_train[ndx]]
