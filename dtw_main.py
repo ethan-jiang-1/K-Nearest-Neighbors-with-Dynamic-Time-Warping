@@ -26,6 +26,7 @@ print("time {}".format(str(time_taken)))
 
 title = "DTW distance between A and B ({}pt) is {:.2f} ".format(len(amplitude_a), distances[0])
 fig = plt.figure(figsize=(12,4))
+plt.subplot(3,1,1)
 _ = plt.plot(time, amplitude_a, label='A')
 _ = plt.plot(time, amplitude_b, label='B')
 #_ = plt.plot(mww, distances, label="distace")
