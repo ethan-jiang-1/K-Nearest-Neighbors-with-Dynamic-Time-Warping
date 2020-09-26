@@ -163,8 +163,9 @@ class KnnDtw(object):
               (1) the predicted class labels 
               (2) the knn label count probability
         """
-        
+        print("cal dm...")
         dm = self._dist_matrix(x, self.xt)
+        print("cal dm done. {}".format(len(dm)))
 
         # Identify the k nearest neighbors
         knn_idx = dm.argsort()[:, :self.n_neighbors]
