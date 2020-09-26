@@ -89,7 +89,10 @@ def _load(dt_type):
             tlo = [] 
             tl = tmp0[i]
             for j in range(0, len(tl)):
-                tlo.append(math.sqrt(tmp0[i][j]*tmp0[i][j] + tmp1[i][j]*tmp1[i][j] + tmp2[i][j]*tmp2[i][j]))
+                ox = math.sqrt(tmp0[i][j]*tmp0[i][j] + tmp1[i][j]*tmp1[i][j] + tmp2[i][j]*tmp2[i][j])
+                #if tmp2[i][j] < 0:
+                #    ox = -ox
+                tlo.append(ox)
             x_train.append(tlo)
 
         tmp0 = []
@@ -108,7 +111,10 @@ def _load(dt_type):
             tlo = [] 
             tl = tmp0[i]
             for j in range(0, len(tl)):
-                tlo.append(math.sqrt(tmp0[i][j]*tmp0[i][j] + tmp1[i][j]*tmp1[i][j] + tmp2[i][j]*tmp2[i][j]))
+                ox = math.sqrt(tmp0[i][j]*tmp0[i][j] + tmp1[i][j]*tmp1[i][j] + tmp2[i][j]*tmp2[i][j])
+                #if tmp2[i][j] < 0:
+                #    ox = -ox
+                tlo.append(ox)
             x_test.append(tlo)  
     else:
         for x in x_train_file:
