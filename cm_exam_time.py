@@ -1,12 +1,12 @@
-from py_shell import is_in_ipython
 import numpy as np
 import matplotlib.pyplot as plt
-from knn_dtw import KnnDtw
 from sklearn.metrics import classification_report, confusion_matrix
-import data_loader 
 
+import s_data_loader as data_loader
+from s_py_shell import is_in_ipython
+from s_knn_dtw import KnnDtw
 
-dt = data_loader.load_feature()
+dt = data_loader.load_feature_time()
 # dt = data_loader.load_raw_acc_x()
 # dt = data_loader.load_raw_acc_z()
 

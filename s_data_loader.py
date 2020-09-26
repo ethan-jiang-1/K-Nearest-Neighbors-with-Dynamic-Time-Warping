@@ -7,6 +7,12 @@ class data(object):
 def load_feature():
     return _load("feature")
 
+def load_feature_time():
+    return _load("feature_time")
+
+def load_feature_freq():
+    return _load("feature_freq")
+
 def load_raw_acc_x():
     return _load("raw_acc_x")
 
@@ -18,7 +24,7 @@ def _load(dt_type):
     dt = data()
 
     # Import the HAR dataset
-    if dt_type == "feature":
+    if dt_type == "feature" or dt_type == "feature_time" or dt_type == "feature_freq":
         x_train_file = open('data/UCI-HAR-Dataset/train/X_train.txt', 'r')
         y_train_file = open('data/UCI-HAR-Dataset/train/y_train.txt', 'r')
         x_test_file = open('data/UCI-HAR-Dataset/test/X_test.txt', 'r')
@@ -49,13 +55,26 @@ def _load(dt_type):
 
     # Loop through datasets
     for x in x_train_file:
-        x_train.append([float(ts) for ts in x.split()])
-        
+        tmp = [float(ts) for ts in x.split()]
+        if dt_type == "feature_time":
+            x_train.append(tmp[0:265])
+        elif dt_type == "feature_freq":
+            x_train.append(tmp[266:])
+        else:
+            x_train.append(tmp)
+
     for y in y_train_file:
         y_train.append(int(y.rstrip('\n')))
         
     for x in x_test_file:
-        x_test.append([float(ts) for ts in x.split()])
+        #x_test.append([float(ts) for ts in x.split()])
+        tmp = [float(ts) for ts in x.split()]
+        if dt_type == "feature_time":
+            x_test.append(tmp[0:265])
+        elif dt_type == "feature_freq":
+            x_test.append(tmp[266:])
+        else:
+            x_test.append(tmp)
         
     for y in y_test_file:
         y_test.append(int(y.rstrip('\n')))
@@ -69,10 +88,26 @@ def _load(dt_type):
     print("load data done.")
     if dt_type == "raw_acc_x" or dt_type == "raw_acc_z":
         print("normalize data")
-        x_train = x_train / np.linalg.norm(x_train)
-        x_test = x_test / np.linalg.norm(x_test)
-
-
+        for i in range(0, len(x_train)):
+            x_train[i] = x_train[i] / np.linalg.norm(x_train[i])
+        for i in range(0, len(x_test)):
+            x_test[i] = x_test[i] / np.linalg.norm(x_test[i])
+    # elif dt_type == "feature_time":
+    #     print("crop time only")
+    #     for i in range(0, len(x_train)):
+    #         tmp = x_train[i][0:265]
+    #         x_train[i] = tmp 
+    #     for i in range(0, len(x_test)):
+    #         tmp = x_test[i][0:265]
+    #         x_test[i] = tmp
+    # elif dt_type == "feature_freq":
+    #     print("normalicrop freq")
+    #     for i in range(0, len(x_train)):
+    #         tmp = x_train[i][266:]
+    #         x_train[i]  = tmp
+    #     for i in range(0, len(x_test)):
+    #         tmp  = x_test[i][266:]
+    #         x_test[i] = tmp
 
     dt.x_train = x_train
     dt.y_train = y_train

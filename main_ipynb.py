@@ -1,4 +1,4 @@
-from py_shell import is_in_ipython
+from s_py_shell import is_in_ipython
 
 print("-------------------------------- section 1")
 from IPython.display import Image
@@ -21,7 +21,7 @@ plt.style.use('bmh')
 # %matplotlib inline
 
 print("-------------------------------- section 4")
-from knn_dtw import KnnDtw
+from s_knn_dtw import KnnDtw
 
 time = np.linspace(0,20,1000)
 amplitude_a = 5*np.sin(time)

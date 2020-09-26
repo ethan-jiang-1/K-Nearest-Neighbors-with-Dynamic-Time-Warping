@@ -1,8 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from knn_dtw import KnnDtw
+from s_knn_dtw import KnnDtw
 plt.style.use('bmh')
 
+print("-------------------------------- section 7")
 # Import the HAR dataset
 x_train_file = open('data/UCI-HAR-Dataset/train/X_train.txt', 'r')
 y_train_file = open('data/UCI-HAR-Dataset/train/y_train.txt', 'r')
@@ -39,17 +40,32 @@ y_train = np.array(y_train)
 x_test = np.array(x_test)
 y_test = np.array(y_test)
 
-plt.figure(figsize=(11,7))
-colors = ['#D62728','#2C9F2C','#FD7F23','#1F77B4','#9467BD',
-          '#8C564A','#7F7F7F','#1FBECF','#E377C2','#BCBD27']
+print("-------------------------------- section 11")
+import time
 
-for i, r in enumerate([0,27,65,100,145,172]):
-    plt.subplot(3,2,i+1)
-    plt.plot(x_train[r], label=labels[y_train[r]], color=colors[i], linewidth=2)
-    plt.xlabel('Samples @50Hz')
-    plt.legend(loc='upper left')
-    plt.tight_layout()
+time_taken = []
+# windows = [1,2,5,10,50,100,500,1000,5000]
+# windows = [1,2,5,10,50,100,200,500]
+windows = [1,2,5,10,50]
 
-from py_shell import is_in_ipython
+for w in windows:
+    print("window size {}".format(w))
+    begin = time.time()
+    
+    t = KnnDtw(n_neighbors=1, max_warping_window=w)
+    t.fit(x_train[:20], y_train[:20])
+    label, proba = t.predict(x_test[:10])
+    
+    end = time.time()
+    time_taken.append(end - begin)
+
+fig = plt.figure(figsize=(12,5))
+_ = plt.plot(windows, [t/400. for t in time_taken], lw=4)
+plt.title('DTW Execution Time with \nvarying Max Warping Window')
+plt.ylabel('Execution Time (seconds)')
+plt.xlabel('Max Warping Window')
+plt.xscale('log')
+
+from s_py_shell import is_in_ipython
 if is_in_ipython():
     plt.show()

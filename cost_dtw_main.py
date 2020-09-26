@@ -1,7 +1,7 @@
-from py_shell import is_in_ipython
+from s_py_shell import is_in_ipython
 import numpy as np
 import matplotlib.pyplot as plt
-from knn_dtw import KnnDtw
+from s_knn_dtw import KnnDtw
 import time as tm
 
 plt.style.use('bmh')

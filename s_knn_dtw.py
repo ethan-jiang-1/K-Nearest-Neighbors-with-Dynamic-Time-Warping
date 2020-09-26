@@ -3,7 +3,7 @@ import numpy as np
 from scipy.spatial.distance import squareform
 from scipy.stats import mode
 
-from progress_bar import ProgressBar
+from s_progress_bar import ProgressBar
 
 
 sys.maxint = 0xffffffff

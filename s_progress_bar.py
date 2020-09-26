@@ -1,6 +1,6 @@
 import sys
 
-from py_shell import is_in_ipython
+from s_py_shell import is_in_ipython
 have_ipython = is_in_ipython()
 
 
