@@ -18,6 +18,9 @@ def load_feature_freq():
 def load_raw_acc_x():
     return _load("raw_acc_x")
 
+def load_raw_acc_y():
+    return _load("raw_acc_y")
+
 def load_raw_acc_z():
     return _load("raw_acc_z")
 
@@ -62,6 +65,12 @@ def _load(dt_type):
         x_train_file = open(data_path('train/InertialSignals/body_acc_x_train.txt'), 'r')
         y_train_file = open(data_path('train/y_train.txt'), 'r')
         x_test_file = open(data_path('test/InertialSignals/body_acc_x_test.txt'), 'r')
+        y_test_file = open(data_path('test/y_test.txt'), 'r')
+
+    elif dt_type == "raw_acc_y":
+        x_train_file = open(data_path('train/InertialSignals/body_acc_y_train.txt'), 'r')
+        y_train_file = open(data_path('train/y_train.txt'), 'r')
+        x_test_file = open(data_path('test/InertialSignals/body_acc_y_test.txt'), 'r')
         y_test_file = open(data_path('test/y_test.txt'), 'r')
 
     elif dt_type == "raw_acc_z":
@@ -155,7 +164,7 @@ def _load(dt_type):
     x_test = np.array(x_test)
 
     print("load data done.")
-    if dt_type == "raw_acc_x" or dt_type == "raw_acc_z" or dt_type == "raw_acc_o":
+    if dt_type == "raw_acc_x" or dt_type == "raw_acc_y" or dt_type == "raw_acc_z" or dt_type == "raw_acc_o":
         print("normalize data")
         for i in range(0, len(x_train)):
             x_train[i] = x_train[i] / np.linalg.norm(x_train[i])

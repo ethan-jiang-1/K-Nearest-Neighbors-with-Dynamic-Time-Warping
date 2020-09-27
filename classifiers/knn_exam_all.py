@@ -3,11 +3,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import classification_report, confusion_matrix
 
 import s_data_loader as data_loader
-
-# from s_knn_dtw import KnnDtw
-
-from sklearn import svm
-from sklearn.model_selection import GridSearchCV
+from sklearn.neighbors import KNeighborsClassifier
 
 # dt = data_loader.load_feature_time()
 dt = data_loader.load_feature()
@@ -21,36 +17,14 @@ y_train = dt.y_train
 x_test = dt.x_test
 y_test = dt.y_test
 
-
-# #n_neighbors = 1
-# n_neighbors = 2
-# #max_warping_window = 10
-# max_warping_window = 4
-# skip_ratio = 100
-# print("skip_ratio: {} n_neighors: {} max_waraping_window: {}".format(skip_ratio, n_neighbors, max_warping_window))
-
-# rx_train = x_train[::skip_ratio]
-# ry_train = y_train[::skip_ratio]
-# rx_test = x_test[::skip_ratio]
-# ry_test = y_test[::skip_ratio]
-# print("data: fit: {} {} ".format(len(rx_train), len(ry_train)))
-# print("data: predict: {} {}".format(len(rx_test), len(ry_test)))
-
-# m = KnnDtw(n_neighbors=n_neighbors, max_warping_window=max_warping_window)
-# m.fit(rx_train, ry_train)
-# label, proba = m.predict(rx_test)
-
 rx_train = x_train
 ry_train = y_train
 rx_test = x_test
 ry_test = y_test
 
-classifier=svm.SVC()
-parameters=[{'kernel': ['rbf'], 'gamma': [0.001, 0.0001], 'C': [1, 10, 100, 1000]}, {'kernel': ['linear'], 'C': [1, 10, 100, 1000]}]
-model=GridSearchCV(classifier,parameters,n_jobs=-1,cv=4,verbose=4)
-
-model.fit(rx_train, ry_train)
-label=model.predict(rx_test)
+knn = KNeighborsClassifier(n_neighbors=24) # setting k= square root of 561
+knn.fit(rx_train, ry_train)
+label=knn.predict(rx_test)
 
 
 print(classification_report(label, ry_test, target_names=[lb for lb in labels.values()]))
@@ -72,4 +46,5 @@ cb = fig.colorbar(res)
 plt.title('Confusion Matrix')
 _ = plt.xticks(range(6), [lb for lb in labels.values()], rotation=90)
 _ = plt.yticks(range(6), [lb for lb in labels.values()])
+
 plt.show()
