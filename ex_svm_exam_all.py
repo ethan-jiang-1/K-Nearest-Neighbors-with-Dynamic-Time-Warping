@@ -3,11 +3,11 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import classification_report, confusion_matrix
 
 import s_data_loader as data_loader
-from s_py_shell import is_in_ipython
+
 # from s_knn_dtw import KnnDtw
 
 from sklearn import svm
-from sklearn.model_selection import learning_curve,GridSearchCV
+from sklearn.model_selection import GridSearchCV
 
 # dt = data_loader.load_feature_time()
 dt = data_loader.load_feature()
@@ -72,5 +72,4 @@ cb = fig.colorbar(res)
 plt.title('Confusion Matrix')
 _ = plt.xticks(range(6), [lb for lb in labels.values()], rotation=90)
 _ = plt.yticks(range(6), [lb for lb in labels.values()])
-if is_in_ipython():
-    plt.show()
+plt.show()

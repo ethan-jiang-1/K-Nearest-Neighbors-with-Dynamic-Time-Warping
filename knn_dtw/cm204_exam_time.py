@@ -6,9 +6,7 @@ import s_data_loader as data_loader
 
 from s_knn_dtw import KnnDtw
 
-
-# dt = data_loader.load_feature_time()
-dt = data_loader.load_feature()
+dt = data_loader.load_feature_time()
 # dt = data_loader.load_raw_acc_x()
 # dt = data_loader.load_raw_acc_z()
 
@@ -20,10 +18,10 @@ x_test = dt.x_test
 y_test = dt.y_test
 
 
-# n_neighbors = 1
-n_neighbors = 24
-# max_warping_window = 10
-max_warping_window = 1
+#n_neighbors = 1
+n_neighbors = 2
+#max_warping_window = 10
+max_warping_window = 4
 skip_ratio = 100
 print("skip_ratio: {} n_neighors: {} max_waraping_window: {}".format(skip_ratio, n_neighbors, max_warping_window))
 

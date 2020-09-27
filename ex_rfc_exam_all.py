@@ -3,12 +3,12 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import classification_report, confusion_matrix
 
 import s_data_loader as data_loader
-from s_py_shell import is_in_ipython
+
 # from s_knn_dtw import KnnDtw
 
 # from sklearn import svm
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import learning_curve,GridSearchCV
+from sklearn.model_selection import GridSearchCV
 
 # dt = data_loader.load_feature_time()
 dt = data_loader.load_feature()
@@ -47,11 +47,11 @@ rx_test = x_test
 ry_test = y_test
 
 classifier = RandomForestClassifier()
-parameters = {'n_estimators': [10, 100, 1000], 'max_depth': [3, 6, 9], 'max_features' : ['auto', 'log2']}
-model=GridSearchCV(classifier,parameters,n_jobs=-1,cv=4,scoring='accuracy',verbose=4)
+parameters = {'n_estimators': [10, 100, 1000], 'max_depth': [3, 6, 9], 'max_features': ['auto', 'log2']}
+model = GridSearchCV(classifier,parameters,n_jobs=-1,cv=4,scoring='accuracy',verbose=4)
 
 model.fit(rx_train, ry_train)
-label=model.predict(rx_test)
+label = model.predict(rx_test)
 
 
 print(classification_report(label, ry_test, target_names=[lb for lb in labels.values()]))
@@ -73,5 +73,4 @@ cb = fig.colorbar(res)
 plt.title('Confusion Matrix')
 _ = plt.xticks(range(6), [lb for lb in labels.values()], rotation=90)
 _ = plt.yticks(range(6), [lb for lb in labels.values()])
-if is_in_ipython():
-    plt.show()
+plt.show()
