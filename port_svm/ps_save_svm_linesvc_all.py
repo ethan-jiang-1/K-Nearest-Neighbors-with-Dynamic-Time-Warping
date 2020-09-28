@@ -37,6 +37,15 @@ with open(pkl_filename, 'wb') as file:
     pickle.dump(model, file)
 print("train model saved: {} size: {}".format(pkl_filename, os.path.getsize(pkl_filename)))
 
+from sklearn_porter import Porter
+
+porter = Porter(model, language='c')
+output = porter.export()
+cpt_filename = "svm_linesvc.c"
+with open(cpt_filename, 'w') as file:
+    n = file.write(output)
+    print("tran model save in c: {} len: {}".format(cpt_filename, len(output)))
+
 print(classification_report(label, ry_test, target_names=[lb for lb in labels.values()]))
 
 conf_mat = confusion_matrix(label, ry_test)
