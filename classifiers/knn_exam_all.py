@@ -22,9 +22,11 @@ ry_train = y_train
 rx_test = x_test
 ry_test = y_test
 
-knn = KNeighborsClassifier(n_neighbors=24) # setting k= square root of 561
-knn.fit(rx_train, ry_train)
-label=knn.predict(rx_test)
+n_neighbors = 24 # setting k= square root of 561 (the len of features)
+print("perform KNN classifier: n_neighbors: {}".format(n_neighbors))
+model = KNeighborsClassifier(n_neighbors=n_neighbors) # setting k= square root of 561
+model.fit(rx_train, ry_train)
+label=model.predict(rx_test)
 
 
 print(classification_report(label, ry_test, target_names=[lb for lb in labels.values()]))
@@ -48,3 +50,14 @@ _ = plt.xticks(range(6), [lb for lb in labels.values()], rotation=90)
 _ = plt.yticks(range(6), [lb for lb in labels.values()])
 
 plt.show()
+
+def predict_meaure(name, model, rx_test):
+    import time
+    print("check predict performance {}...".format(name))
+    begin = time.time()
+    model.predict(rx_test)
+    delta = time.time() - begin
+    print("check predict perform time_elapse: {:.2f} sec on total {} samples, {:.4f} msec per prediction ".format(delta, len(rx_test), delta*1000/len(rx_test)))
+
+
+predict_meaure("knn", model, rx_test)

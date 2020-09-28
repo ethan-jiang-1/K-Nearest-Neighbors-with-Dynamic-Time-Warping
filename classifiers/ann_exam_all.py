@@ -9,10 +9,10 @@ import s_data_loader as data_loader
 # from sklearn.ensemble import RandomForestClassifier
 # from sklearn.model_selection import learning_curve,GridSearchCV
 # from sklearn.neighbors import KNeighborsClassifier
-import keras
-from keras.models import Sequential #sequential is required to initialise the neural network
-from keras.layers import Dense      #dense is used to build the layers
-from keras.layers import Dropout    #Dropout Layer in order to prevent Regularization in the network
+# import keras
+from keras.models import Sequential # sequential is required to initialise the neural network
+from keras.layers import Dense      # dense is used to build the layers
+from keras.layers import Dropout    # Dropout Layer in order to prevent Regularization in the network
 
 
 # dt = data_loader.load_feature_time()
@@ -33,18 +33,18 @@ rx_test = x_test
 ry_test = y_test
 
 #creating a network of 561 X 48 X 24 X 12 X6
-classifier = Sequential()
-classifier.add(Dense(48, input_dim = 561, kernel_initializer='uniform', activation='relu', ))
-classifier.add(Dropout(0.1))
-classifier.add(Dense(24, kernel_initializer='uniform', activation='relu'))
-classifier.add(Dropout(0.1))
-classifier.add(Dense(12, kernel_initializer='uniform', activation='relu'))
-classifier.add(Dropout(0.1))
-classifier.add(Dense(6, kernel_initializer='uniform', activation='softmax'))
-classifier.compile(optimizer='adam', loss='categorical_crossentropy', metrics = ['accuracy'])
+model = Sequential()
+model.add(Dense(48, input_dim = 561, kernel_initializer='uniform', activation='relu', ))
+model.add(Dropout(0.1))
+model.add(Dense(24, kernel_initializer='uniform', activation='relu'))
+model.add(Dropout(0.1))
+model.add(Dense(12, kernel_initializer='uniform', activation='relu'))
+model.add(Dropout(0.1))
+model.add(Dense(6, kernel_initializer='uniform', activation='softmax'))
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics = ['accuracy'])
 
-classifier.fit(rx_train, ry_train, batch_size=20, epochs=10, verbose = 4)
-label=classifier.predict(rx_test)
+model.fit(rx_train, ry_train, batch_size=20, epochs=10, verbose = 4)
+label=model.predict(rx_test)
 
 
 print(classification_report(label, ry_test, target_names=[lb for lb in labels.values()]))
@@ -67,3 +67,15 @@ plt.title('Confusion Matrix')
 _ = plt.xticks(range(6), [lb for lb in labels.values()], rotation=90)
 _ = plt.yticks(range(6), [lb for lb in labels.values()])
 plt.show()
+
+
+def predict_meaure(name, model, rx_test):
+    import time
+    print("check predict performance {}...".format(name))
+    begin = time.time()
+    model.predict(rx_test)
+    delta = time.time() - begin
+    print("check predict perform time_elapse: {:.2f} sec on total {} samples, {:.4f} msec per prediction ".format(delta, len(rx_test), delta*1000/len(rx_test)))
+
+
+predict_meaure("rfc", model, rx_test)

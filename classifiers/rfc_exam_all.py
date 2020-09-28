@@ -27,6 +27,7 @@ ry_test = y_test
 classifier = RandomForestClassifier()
 parameters = {'n_estimators': [10, 100, 1000], 'max_depth': [3, 6, 9], 'max_features': ['auto', 'log2']}
 model = GridSearchCV(classifier,parameters,n_jobs=-1,cv=4,scoring='accuracy',verbose=4)
+print("perform RandomForest classifier: parameters: {}".format(str(parameters)))
 
 model.fit(rx_train, ry_train)
 label = model.predict(rx_test)
@@ -52,3 +53,15 @@ plt.title('Confusion Matrix')
 _ = plt.xticks(range(6), [lb for lb in labels.values()], rotation=90)
 _ = plt.yticks(range(6), [lb for lb in labels.values()])
 plt.show()
+
+
+def predict_meaure(name, model, rx_test):
+    import time
+    print("check predict performance {}...".format(name))
+    begin = time.time()
+    model.predict(rx_test)
+    delta = time.time() - begin
+    print("check predict perform time_elapse: {:.2f} sec on total {} samples, {:.4f} msec per prediction ".format(delta, len(rx_test), delta*1000/len(rx_test)))
+
+
+predict_meaure("rfc", model, rx_test)
