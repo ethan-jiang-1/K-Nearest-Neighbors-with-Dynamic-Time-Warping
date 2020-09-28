@@ -65,3 +65,6 @@ plt.title('Confusion Matrix')
 _ = plt.xticks(range(6), [lb for lb in labels.values()], rotation=90)
 _ = plt.yticks(range(6), [lb for lb in labels.values()])
 plt.show()
+
+from s_inspect import inspect_xnn
+inspect_xnn(model)
