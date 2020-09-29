@@ -2,10 +2,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import classification_report, confusion_matrix
 
-import s_data_loader as data_loader
-
 from s_knn_dtw import KnnDtw
 
+import os, sys
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
+import s_data_loader as data_loader
 # dt = data_loader.load_feature_time()
 # dt = data_loader.load_feature()
 dt = data_loader.load_raw_acc_x()

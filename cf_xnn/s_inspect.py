@@ -8,4 +8,3 @@ def inspect_xnn(model):
         print("layer {} hidden size: {} shape: {}".format(i, len(layer), layer.shape))
         total_co += np.size(layer)
     print("total size of coefs_: {}".format(total_co))
-

@@ -6,9 +6,11 @@ import time as tm
 
 plt.style.use('bmh')
 
+import os, sys
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
 import s_data_loader as data_loader
-
-
 # dt = data_loader.load_feature()
 # dt = data_loader.load_feature_time()
 dt = data_loader.load_feature_freq()
