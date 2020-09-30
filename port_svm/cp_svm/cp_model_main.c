@@ -22,7 +22,7 @@ int predict (float features[]) {
     return class_idx;
 }
 
-int xmain(int argc, const char * argv[]) {
+int main(int argc, const char * argv[]) {
 
     /* Features: */
     float features[argc-1];
@@ -33,29 +33,6 @@ int xmain(int argc, const char * argv[]) {
 
     /* Prediction: */
     printf("%d", predict(features));
-    return 0;
-
-}
-/* NOTICE comment out or rename previous main and use this main*/
-/* rx_test_num and rx_test are defined in cp_test.h */
-/* include "cp_test.h" */
-
-#include "cp_test_data.h"
-int main(int argc, const char * argv[]) {
-
-    /* Features: */
-    FILE *f = fopen("cp_result.txt", "w+");
-    float* features;
-    int i;
-    for (i = 0; i < rx_test_num; i++) {
-        features = &(rx_test[i][0]);
-        int result = predict(features);
-        printf("%d: %d\n", i, result);
-        fprintf(f, "%d\n", result);
-    }
-    fclose(f);
-
-    /* Prediction: */
     return 0;
 
 }

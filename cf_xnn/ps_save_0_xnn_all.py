@@ -54,6 +54,44 @@ with open(pkl_filename, 'wb') as file:
     pickle.dump(model, file)
 print("train model saved: {}".format(pkl_filename))
 
+# from sklearn_porter import Porter
+
+# porter = Porter(model, language='java')
+# output = porter.export()
+# cpt_filename = "MLPClassifier.java"
+# with open(cpt_filename, 'w') as file:
+#     n = file.write(output)
+#     print("tran model save in data: {} len: {}".format(cpt_filename, len(output)))
+
+# '''
+#             for (int i =0; i< rx_test_num; i++) {
+#                 // Features:
+#                 double[] features = rx_test[i];
+#                 int estimation = clf.predict(features);
+#                 System.out.println(estimation);            
+#              }
+# '''
+
+cpt_testfilename = "MLPClassifier.dat"
+if os.path.isfile(cpt_testfilename):
+    os.unlink(cpt_testfilename)
+
+print("prepare predit data")
+
+with open(cpt_testfilename, 'w+') as file:
+    file.write("int rx_test_num = {};\n".format(len(rx_test)))
+    file.write("double rx_test[][] = ")
+    file.write(" {\n")
+    for i in range(0, len(rx_test)):
+        test_case = rx_test[i]
+        file.write("{")
+        for j in range(0, len(test_case)):
+            if j == len(test_case) - 1:
+                file.write("{}".format(test_case[j]))
+            else:
+                file.write("{},".format(test_case[j]))
+        file.write("},\n")
+    file.write("};\n")
 
 print(classification_report(label, ry_test, target_names=[lb for lb in labels.values()]))
 

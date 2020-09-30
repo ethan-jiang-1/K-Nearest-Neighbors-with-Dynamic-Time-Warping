@@ -21,7 +21,6 @@ def data_path(dat_file):
     return path  
 
 
-
 class DataHolder(object):
     def __init__(self, x_train, y_train, x_test, y_test):
         self.x_train = x_train
@@ -30,7 +29,7 @@ class DataHolder(object):
         self.y_test = y_test
 
         self.labels = {1:'WALKING', 2:'WALKING UPSTAIRS', 3:'WALKING DOWNSTAIRS',
-                        4:'SITTING', 5:'STANDING', 6:'LAYING'}
+                       4:'SITTING', 5:'STANDING', 6:'LAYING'}
 
 
 class DataSrc(object):
@@ -48,7 +47,6 @@ class DataSrc(object):
         self._normalize()
         dh = DataHolder(self.x_train, self.y_train, self.x_test, self.y_test)
         return dh
-
 
     def _load_from_file(self):
         # Import the HAR dataset
@@ -107,11 +105,10 @@ class DataSrc(object):
     def _normalize(self):
         if self.dt_type == "raw_acc_x" or self.dt_type == "raw_acc_y" or self.dt_type == "raw_acc_z" or self.dt_type == "raw_acc_o":
             print("normalize data")
-            for i in range(0, len(x_train)):
+            for i in range(0, len(self.x_train)):
                 self.x_train[i] = self.x_train[i] / np.linalg.norm(self.x_train[i])
-            for i in range(0, len(x_test)):
+            for i in range(0, len(self.x_test)):
                 self.x_test[i] = self.x_test[i] / np.linalg.norm(self.x_test[i])
-
 
     def _transform_merge(self):
         if self.dt_type != "raw_acc_o":
@@ -160,8 +157,7 @@ class DataSrc(object):
                 #if tmp2[i][j] < 0:
                 #    ox = -ox
                 tlo.append(ox)
-            x_test.append(tlo)  
-
+            self.x_test.append(tlo)
 
     def _transfrim_trim(self):
         #trunk or not 
@@ -184,8 +180,6 @@ class DataSrc(object):
                 self.x_test.append(tmp)
 
 
-
-      
 def _load(dt_type):
     print("load data...{}".format(dt_type))
     ds = DataSrc(dt_type)
@@ -214,4 +208,3 @@ def load_raw_acc_z():
 
 def load_raw_acc_o():
     return _load("raw_acc_o")
-
