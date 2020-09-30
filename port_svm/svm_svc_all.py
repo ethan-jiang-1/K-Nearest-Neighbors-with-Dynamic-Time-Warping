@@ -35,6 +35,7 @@ ry_test = y_test
 
 model = make_pipeline(StandardScaler(), svm.SVC(gamma='auto'))
 model.fit(rx_train, ry_train)
+
 label=model.predict(rx_test)
 
 import pickle, os
