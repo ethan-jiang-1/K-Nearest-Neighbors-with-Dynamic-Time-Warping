@@ -1,7 +1,7 @@
 import subprocess
 import errno
 import sys
-
+import os
 
 def run_command(cmds, args, cwd=None, verbose=False, hide_stderr=False):
     assert isinstance(cmds, list)
@@ -35,4 +35,3 @@ def run_command(cmds, args, cwd=None, verbose=False, hide_stderr=False):
             print("unable to run %s (error)" % args[0])
         return False, stdout
     return True, stdout
-

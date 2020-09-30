@@ -84,4 +84,4 @@ print("clean up predict file {}".format(cpp_filename))
 if os.path.isfile(cpp_filename):
     os.unlink(cpp_filename)
 
-print("please go to cp_svm subfolder, and prepare executable: compile {} to a.out".format(cpm_filename))
+print("please go to cp_svm subfolder, and prepare executable: compile {} to a.out by c compiler".format(cpm_filename))

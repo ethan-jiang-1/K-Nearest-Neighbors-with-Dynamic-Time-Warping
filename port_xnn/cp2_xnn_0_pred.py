@@ -51,7 +51,7 @@ if not os.path.isfile(cpe_filename):
     print("Error no cpe_filename {}".format(cpe_filename))
     sys.exit(-1)
 
-from s_utils import run_command
+import subprocess
 
 root_dir = os.getcwd()
 working_dir = root_dir + "/cp_xnn"
@@ -66,7 +66,7 @@ for i in range(0, test_num):
 
     # ret, stdout = run_command(["java", "MLPClassifier"], nums, cwd=working_dir)
     ret = True
-    import subprocess
+
     cmds = ["java", "MLPClassifier"]
     cmds += nums 
     stdout = subprocess.check_output(cmds)
@@ -85,8 +85,6 @@ for i in range(0, test_num):
 os.chdir(root_dir)
 
 label = np.array(label_raw)
-
-
 
 print(classification_report(label, ry_test, target_names=[lb for lb in labels.values()]))
 
@@ -108,4 +106,3 @@ plt.title('Confusion Matrix')
 _ = plt.xticks(range(6), [lb for lb in labels.values()], rotation=90)
 _ = plt.yticks(range(6), [lb for lb in labels.values()])
 plt.show()
-

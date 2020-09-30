@@ -44,8 +44,6 @@ model = MLPClassifier(activation='relu', alpha=0.0001, batch_size='auto', beta_1
 
 model.fit(rx_train, ry_train)
 
-
-
 if not os.path.isdir("cp_xnn"):
     os.mkdir("cp_xnn")
 if not os.path.isdir("cp_xnn/dat"):
@@ -92,4 +90,4 @@ print("clean up predict file {}".format(cpp_filename))
 if os.path.isfile(cpp_filename):
     os.unlink(cpp_filename)
 
-print("please go to cp_xnn subfolder, and prepare executable: compile {} to java executable".format(cpm_filename))
+print("please go to cp_xnn subfolder, and prepare executable: compile {} to class by javac".format(cpm_filename))

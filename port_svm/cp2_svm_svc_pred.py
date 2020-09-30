@@ -51,7 +51,7 @@ if not os.path.isfile(cpe_filename):
     print("Error no cpe_filename {}".format(cpe_filename))
     sys.exit(-1)
 
-from s_utils import run_command
+import subprocess
 
 root_dir = os.getcwd()
 working_dir = root_dir + "/cp_svm"
@@ -64,21 +64,25 @@ for i in range(0, test_num):
         line = tdatf.readline()
         nums = line.split(" ")
 
-    ret, stdout = run_command(["./a.out"], nums, cwd=working_dir)
+    ret = True
+    cmds = ["./a.out"]
+    cmds += nums 
+    stdout = subprocess.check_output(cmds)
     print(i, ret, stdout)
     if ret:
-        if int(stdout) >= 0:
-            label = int(stdout) + 1
+        num_result = stdout.decode("utf-8").strip()
+        if int(num_result) >= 0:
+            label = int(num_result) + 1
             label_raw.append(label)
         else:
-            print("error at {} result: {} {}".format(tdat, ret, stdout))
+            print("error at {} result: {} {}".format(tdat, ret, num_result))
             label_raw.append(1)
+    else:
+        print("error unknown at {}".foramt(tdat))
 
 os.chdir(root_dir)
 
 label = np.array(label_raw)
-
-
 
 print(classification_report(label, ry_test, target_names=[lb for lb in labels.values()]))
 
@@ -100,4 +104,3 @@ plt.title('Confusion Matrix')
 _ = plt.xticks(range(6), [lb for lb in labels.values()], rotation=90)
 _ = plt.yticks(range(6), [lb for lb in labels.values()])
 plt.show()
-
