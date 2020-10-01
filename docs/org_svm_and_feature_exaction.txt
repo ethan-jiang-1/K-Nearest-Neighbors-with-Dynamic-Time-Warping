@@ -1,0 +1,8 @@
+details can be find here:
+
+https://github.com/ethan-jiang-1/Human-Activity-Recognition-Using-Smartphones.github.io
+
+includes:
+1) how to prepare features (required by svm) based on raw data from acc, gyro etc.
+2) svm predict (different tune of parameters)
+3) some other classifier

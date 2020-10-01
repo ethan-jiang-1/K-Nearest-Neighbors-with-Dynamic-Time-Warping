@@ -1,0 +1,17 @@
+classifer in details
+
+cf_knn          knn exam in detail
+cf_rfc          rf exam in detail
+cf_svm          svm exam in detail
+cf_ann          ann exam in detail
+classifiers     all classifiers: knn, svm, ann, rfc
+data            raw data and extracted features that can be used for traning and predict
+docs            docs
+images          ipynb required
+inspect         inspect the data
+knn_dtw         knn and dtw -- this is where the study com from, but it seems svm and ann have better outcome
+port_ann        prepare port ann to embededed - java only for now
+port_svm        prepare port svm to embedded - c
+styles          ipynb required
+
+s_xxx.py        common python utils required by subfolder

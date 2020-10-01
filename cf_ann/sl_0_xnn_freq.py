@@ -20,7 +20,7 @@ parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
 import s_data_loader as data_loader
 # dt = data_loader.load_feature_time()
-dt = data_loader.load_feature()
+dt = data_loader.load_feature_freq()
 # dt = data_loader.load_raw_acc_x()
 # dt = data_loader.load_raw_acc_z()
 
@@ -37,27 +37,13 @@ rx_test = x_test
 ry_test = y_test
 
 
-model = MLPClassifier(activation='relu', 
-       alpha=0.0001, 
-       batch_size='auto', 
-       beta_1=0.9, 
-       beta_2=0.999, 
-       early_stopping=False, 
-       epsilon=1e-08,
-       hidden_layer_sizes=(), 
-       learning_rate='constant',
-       learning_rate_init=0.001, 
-       max_iter=200, 
-       momentum=0.9,
-       nesterovs_momentum=True, 
-       power_t=0.5, 
-       random_state=None,
-       shuffle=True, 
-       solver='adam', 
-       tol=0.0001, 
-       validation_fraction=0.1,
-       verbose=False, 
-       warm_start=False)
+model = MLPClassifier(activation='relu', alpha=0.0001, batch_size='auto', beta_1=0.9,
+       beta_2=0.999, early_stopping=False, epsilon=1e-08,
+       hidden_layer_sizes=(), learning_rate='constant',
+       learning_rate_init=0.001, max_iter=600, momentum=0.9,
+       nesterovs_momentum=True, power_t=0.5, random_state=None,
+       shuffle=True, solver='adam', tol=0.0001, validation_fraction=0.1,
+       verbose=True, warm_start=False)
 
 model.fit(rx_train, ry_train)
 label=model.predict(rx_test)
