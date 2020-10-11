@@ -1,8 +1,13 @@
 # import os
-import sys
+# import sys
 import signal
 import numpy as np
 import matplotlib.pyplot as plt
+
+import os, sys
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
 from s_data_loader import data_path
 
 plt.style.use('bmh')

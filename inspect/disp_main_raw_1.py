@@ -51,30 +51,26 @@ colors = ['#D62728','#2C9F2C','#FD7F23','#1F77B4','#9467BD',
 labels = {1:'WALKING', 2:'WALKING UPSTAIRS', 3:'WALKING DOWNSTAIRS',
           4:'SITTING', 5:'STANDING', 6:'LAYING'}
 
-plt.figure(figsize=(11,7))
-for i, r in enumerate([0,27,65,100,145,172]):
-    ndx = r
-    label_pre = labels[y_train[ndx]]
-    color = colors[i]
+for i, sample in enumerate([0,27,65,100,145,172]):
+    plt.figure(num=sample, figsize=(16,9))
+    label_pre = labels[y_train[sample]] + "_s" + str(sample)
 
     for j in range(0,3):
         if j %3 == 0:
-            acc_raw = x_acc_raw[ndx]
+            acc_raw = x_acc_raw[sample]
             label = "x_" + label_pre
         elif j % 3 == 1:
-            acc_raw = y_acc_raw[ndx]
+            acc_raw = y_acc_raw[sample]
             label = "y_" + label_pre
         elif j %3 == 2:
-            acc_raw = z_acc_raw[ndx]
+            acc_raw = z_acc_raw[sample]
             label = "z_" + label_pre
         
         data =acc_raw    
-        plt.subplot(6,3, i*3 + j +1)
-        plt.plot(data, label=label, color=color, linewidth=2)
+        # plt.subplot(3, 1, j+1)
+        plt.plot(data, label=label, color=colors[j], linewidth=2)
         plt.xlabel('{}:{:.3f}/{:.3f}'.format(len(acc_raw), max(acc_raw), min(acc_raw)))
         plt.legend(loc='upper left')
         plt.xticks(fontsize=10)
         plt.tight_layout()
-
-
-plt.show()
+    plt.show()
