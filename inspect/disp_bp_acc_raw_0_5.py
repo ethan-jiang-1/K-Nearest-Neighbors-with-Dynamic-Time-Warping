@@ -1,6 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import butter, lfilter
+import os, sys
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
 from s_data_loader import data_path
 
 plt.style.use('bmh')
@@ -61,8 +65,8 @@ fs = 50.0
 nsamples = 128
 T = nsamples/fs
 t = np.linspace(0, T, nsamples, endpoint=False)
-plt.figure(figsize=(11,7))
-for i, r in enumerate([0,27,65,0,27,65]):
+plt.figure(figsize=(16,9))
+for i, r in enumerate([0, 1, 2, 3, 4, 5]):
     ndx = r
     label_pre = labels[y_train[ndx]]
     color = colors[i]
@@ -70,23 +74,26 @@ for i, r in enumerate([0,27,65,0,27,65]):
     for j in range(0,3):
         if j %3 == 0:
             acc_raw = x_acc_raw[ndx]
-            label = "x_" + label_pre
+            label = "x_" + label_pre + str(ndx)
         elif j % 3 == 1:
             acc_raw = y_acc_raw[ndx]
-            label = "y_" + label_pre
+            label = "y_" + label_pre + str(ndx)
         elif j %3 == 2:
             acc_raw = z_acc_raw[ndx]
-            label = "z_" + label_pre
-        if i >= 3:
-            label = "f" + label
-            acc_raw = filter_raw(acc_raw)
+            label = "z_" + label_pre + str(ndx)
         
-        data =acc_raw    
-        plt.subplot(6,3, i*3 + j +1)
+        data =acc_raw 
+
+        parameters = {'axes.labelsize': 8,
+          'axes.titlesize': 8,
+          'legend.fontsize': 8}
+        plt.rcParams.update(parameters)   
+        plt.subplot(6, 3, i*3 + j +1)
         plt.plot(t, data, label=label, color=color, linewidth=2)
-        plt.xlabel('{}:{:.3f}/{:.3f}'.format(len(acc_raw), max(acc_raw), min(acc_raw)))
+        plt.xlabel('{}:{:.3f}/{:.3f}'.format(len(acc_raw), max(acc_raw), min(acc_raw)), fontsize=8)
         plt.legend(loc='upper left')
-        plt.xticks(fontsize=10)
+        plt.xticks(fontsize=8)
+        plt.yticks(fontsize=8)
         plt.tight_layout()
 
 plt.show()

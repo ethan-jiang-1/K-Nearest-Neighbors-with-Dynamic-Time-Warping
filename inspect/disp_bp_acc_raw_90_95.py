@@ -9,7 +9,6 @@ from s_data_loader import data_path
 
 plt.style.use('bmh')
 
-
 def butter_bandpass(lowcut, highcut, fs, order=5):
     nyq = 0.5 * fs
     low = lowcut / nyq
@@ -25,8 +24,8 @@ def butter_bandpass_filter(data, lowcut, highcut, fs, order=3):
 
 
 def filter_raw(acc_raw):
-    lowcut = 5.0 # HZ
-    highcut = 2000.0 # HZ
+    lowcut = 10.0
+    highcut = 1000.0
     fs = 50.0 * 128  # 128 points /(1/50) # samples(total points) / T (total time length)
     filter_raw = butter_bandpass_filter(acc_raw, lowcut, highcut, fs, order=3)
     return filter_raw
@@ -66,8 +65,8 @@ fs = 50.0
 nsamples = 128
 T = nsamples/fs
 t = np.linspace(0, T, nsamples, endpoint=False)
-plt.figure(figsize=(11,7))
-for i, r in enumerate([0,27,65,0,27,65]):
+plt.figure(figsize=(16,9))
+for i, r in enumerate([90, 91, 92, 93, 94, 95]):
     ndx = r
     label_pre = labels[y_train[ndx]]
     color = colors[i]
@@ -75,23 +74,26 @@ for i, r in enumerate([0,27,65,0,27,65]):
     for j in range(0,3):
         if j %3 == 0:
             acc_raw = x_acc_raw[ndx]
-            label = "x_" + label_pre
+            label = "x_" + label_pre + str(ndx)
         elif j % 3 == 1:
             acc_raw = y_acc_raw[ndx]
-            label = "y_" + label_pre
+            label = "y_" + label_pre + str(ndx)
         elif j %3 == 2:
             acc_raw = z_acc_raw[ndx]
-            label = "z_" + label_pre
-        if i >= 3:
-            label = "f" + label
-            acc_raw = filter_raw(acc_raw)
+            label = "z_" + label_pre + str(ndx)
         
-        data =acc_raw    
-        plt.subplot(6,3, i*3 + j +1)
+        data =acc_raw 
+
+        parameters = {'axes.labelsize': 8,
+          'axes.titlesize': 8,
+          'legend.fontsize': 8}
+        plt.rcParams.update(parameters)   
+        plt.subplot(6, 3, i*3 + j +1)
         plt.plot(t, data, label=label, color=color, linewidth=2)
-        plt.xlabel('{}:{:.3f}/{:.3f}'.format(len(acc_raw), max(acc_raw), min(acc_raw)))
+        plt.xlabel('{}:{:.3f}/{:.3f}'.format(len(acc_raw), max(acc_raw), min(acc_raw)), fontsize=8)
         plt.legend(loc='upper left')
-        plt.xticks(fontsize=10)
+        plt.xticks(fontsize=8)
+        plt.yticks(fontsize=8)
         plt.tight_layout()
 
 plt.show()
