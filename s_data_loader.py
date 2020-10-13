@@ -1,5 +1,5 @@
 import numpy as np
-import math
+# import math
 import os
 
 
@@ -56,34 +56,6 @@ class DataSrc(object):
             self.x_test_file = open(data_path('test/X_test.txt'), 'r')
             self.y_test_file = open(data_path('test/y_test.txt'), 'r')
      
-        elif self.dt_type == "raw_acc_x":
-            self.x_train_file = open(data_path('train/InertialSignals/body_acc_x_train.txt'), 'r')
-            self.y_train_file = open(data_path('train/y_train.txt'), 'r')
-            self.x_test_file = open(data_path('test/InertialSignals/body_acc_x_test.txt'), 'r')
-            self.y_test_file = open(data_path('test/y_test.txt'), 'r')
-
-        elif self.dt_type == "raw_acc_y":
-            self.x_train_file = open(data_path('train/InertialSignals/body_acc_y_train.txt'), 'r')
-            self.y_train_file = open(data_path('train/y_train.txt'), 'r')
-            self.x_test_file = open(data_path('test/InertialSignals/body_acc_y_test.txt'), 'r')
-            self.y_test_file = open(data_path('test/y_test.txt'), 'r')
-
-        elif self.dt_type == "raw_acc_z":
-            self.x_train_file = open(data_path('train/InertialSignals/body_acc_z_train.txt'), 'r')
-            self.y_train_file = open(data_path('train/y_train.txt'), 'r')
-            self.x_test_file = open(data_path('test/InertialSignals/body_acc_z_test.txt'), 'r')
-            self.y_test_file = open(data_path('test/y_test.txt'), 'r')
-
-        elif self.dt_type == "raw_acc_o":
-            self.x_train_file_0 = open(data_path('train/InertialSignals/body_acc_x_train.txt'), 'r')
-            self.x_train_file_1 = open(data_path('train/InertialSignals/body_acc_y_train.txt'), 'r')
-            self.x_train_file_2 = open(data_path('train/InertialSignals/body_acc_z_train.txt'), 'r')
-            self.y_train_file = open(data_path('train/y_train.txt'), 'r')
-            self.x_test_file_0 = open(data_path('test/InertialSignals/body_acc_x_test.txt'), 'r')
-            self.x_test_file_1 = open(data_path('test/InertialSignals/body_acc_y_test.txt'), 'r')
-            self.x_test_file_2 = open(data_path('test/InertialSignals/body_acc_z_test.txt'), 'r')
-            self.y_test_file = open(data_path('test/y_test.txt'), 'r')      
-
         # Loop through datasets
         for y in self.y_train_file:
             self.y_train.append(int(y.rstrip('\n')))
@@ -93,71 +65,17 @@ class DataSrc(object):
         self.y_train = np.array(self.y_train)
 
     def _transform(self):
-        if self.dt_type == "raw_acc_o":
-            self._transform_merge()
-        else:
-            self._transfrim_trim()
+        self._transfrim_trim()
 
         # Convert to numpy for efficiency
         self.x_train = np.array(self.x_train)
         self.x_test = np.array(self.x_test)
 
     def _normalize(self):
-        if self.dt_type == "raw_acc_x" or self.dt_type == "raw_acc_y" or self.dt_type == "raw_acc_z" or self.dt_type == "raw_acc_o":
-            print("normalize data")
-            for i in range(0, len(self.x_train)):
-                self.x_train[i] = self.x_train[i] / np.linalg.norm(self.x_train[i])
-            for i in range(0, len(self.x_test)):
-                self.x_test[i] = self.x_test[i] / np.linalg.norm(self.x_test[i])
+        pass
 
     def _transform_merge(self):
-        if self.dt_type != "raw_acc_o":
-            return
-        
-        # merge or not
-        tmp0 = []
-        tmp1 = []
-        tmp2 = []
-        for x in self.x_train_file_0:
-            t0 = [float(ts) for ts in x.split()]
-            tmp0.append(t0)
-        for x in self.x_train_file_1:
-            t1 = [float(ts) for ts in x.split()]
-            tmp1.append(t1)        
-        for x in self.x_train_file_2:
-            t2 = [float(ts) for ts in x.split()]
-            tmp2.append(t2)        
-        for i in range(0, len(tmp0)):
-            tlo = [] 
-            tl = tmp0[i]
-            for j in range(0, len(tl)):
-                ox = math.sqrt(tmp0[i][j]*tmp0[i][j] + tmp1[i][j]*tmp1[i][j] + tmp2[i][j]*tmp2[i][j])
-                #if tmp2[i][j] < 0:
-                #    ox = -ox
-                tlo.append(ox)
-            self.x_train.append(tlo)
-
-        tmp0 = []
-        tmp1 = []
-        tmp2 = []
-        for x in self.x_test_file_0:
-            t0 = [float(ts) for ts in x.split()]
-            tmp0.append(t0)
-        for x in self.x_test_file_1:
-            t1 = [float(ts) for ts in x.split()]
-            tmp1.append(t1)        
-        for x in self.x_test_file_2:
-            t2 = [float(ts) for ts in x.split()]
-            tmp2.append(t2)        
-        for i in range(0, len(tmp0)):
-            tlo = [] 
-            tl = tmp0[i]
-            for j in range(0, len(tl)):
-                ox = math.sqrt(tmp0[i][j]*tmp0[i][j] + tmp1[i][j]*tmp1[i][j] + tmp2[i][j]*tmp2[i][j])
-                #if tmp2[i][j] < 0:
-                #    ox = -ox
-                tlo.append(ox)
-            self.x_test.append(tlo)
+        pass
 
     def _transfrim_trim(self):
         #trunk or not 
@@ -196,15 +114,3 @@ def load_feature_time():
 
 def load_feature_freq():
     return _load("feature_freq")
-
-def load_raw_acc_x():
-    return _load("raw_acc_x")
-
-def load_raw_acc_y():
-    return _load("raw_acc_y")
-
-def load_raw_acc_z():
-    return _load("raw_acc_z")
-
-def load_raw_acc_o():
-    return _load("raw_acc_o")

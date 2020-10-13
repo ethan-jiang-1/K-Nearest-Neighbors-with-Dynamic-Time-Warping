@@ -8,9 +8,7 @@ import os, sys
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
-import s_data_loader as data_loader
-# dt = data_loader.load_feature_time()
-# dt = data_loader.load_feature()
+import s_data_loader_raw as data_loader
 # dt = data_loader.load_raw_acc_x()
 dt = data_loader.load_raw_acc_o()
 
