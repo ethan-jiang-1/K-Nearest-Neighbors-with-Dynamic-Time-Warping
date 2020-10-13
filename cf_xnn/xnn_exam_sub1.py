@@ -7,8 +7,8 @@ import os, sys
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
-import s_data_loader as data_loader
-dt = data_loader.load_feature_freq()
+import s_data_loader_sub as data_loader
+dt = data_loader.load_feature_sub1()
 # dt = data_loader.load_feature()
 
 # Mapping table for classes
@@ -23,7 +23,7 @@ ry_train = y_train
 rx_test = x_test
 ry_test = y_test
 
-max_iter = 400
+max_iter = 800
 
 
 model = MLPClassifier(activation='relu', alpha=0.0001, batch_size='auto', beta_1=0.9,

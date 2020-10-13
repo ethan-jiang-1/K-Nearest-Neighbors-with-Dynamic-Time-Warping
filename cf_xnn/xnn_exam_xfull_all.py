@@ -1,17 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import classification_report, confusion_matrix
-
-# from s_knn_dtw import KnnDtw
-
-# from sklearn import svm
-# from sklearn.ensemble import RandomForestClassifier
-# from sklearn.model_selection import learning_curve,GridSearchCV
-# from sklearn.neighbors import KNeighborsClassifier
-# import keras
-# from keras.models import Sequential # sequential is required to initialise the neural network
-#from keras.layers import Dense      # dense is used to build the layers
-# from keras.layers import Dropout    # Dropout Layer in order to prevent Regularization in the network
 from sklearn.neural_network import MLPClassifier
 
 import os, sys
