@@ -38,9 +38,16 @@ ry_test = y_test
 
 
 import pickle
-pkl_filename = "ps_model.pkl"
-with open(pkl_filename, 'rb') as file:
-    pickle_model = pickle.load(file)
+try:
+    pkl_filename = "ps_model.pkl"
+    with open(pkl_filename, 'rb') as file:
+        pickle_model = pickle.load(file)
+except Exception as ex:
+    print(ex)
+    pkl_filename = "port_ann/ps_model.pkl"
+    with open(pkl_filename, 'rb') as file:
+        pickle_model = pickle.load(file)
+    
 print("train model loaded: {}".format(pkl_filename))
 model = pickle_model
 
@@ -83,5 +90,16 @@ _ = plt.xticks(range(6), [lb for lb in labels.values()], rotation=90)
 _ = plt.yticks(range(6), [lb for lb in labels.values()])
 plt.show()
 
-from s_inspect import inspect_xnn
+def inspect_xnn(model):
+    # import numpy as np
+    print(model)
+    print("layers: {}".format(len(model.coefs_)))
+    total_co = 0
+    for i in range(0, len(model.coefs_)):
+        layer = model.coefs_[i]
+        print("layer {} hidden size: {} shape: {}".format(i, len(layer), layer.shape))
+        total_co += np.size(layer)
+    print("total size of coefs_: {}".format(total_co))
+
+
 inspect_xnn(model)
