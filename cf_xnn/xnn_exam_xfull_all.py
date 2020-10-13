@@ -35,10 +35,12 @@ rx_test = x_test
 ry_test = y_test
 
 
+max_iter = 400
+
 model = MLPClassifier(activation='relu', alpha=0.0001, batch_size='auto', beta_1=0.9,
        beta_2=0.999, early_stopping=False, epsilon=1e-08,
-       hidden_layer_sizes=(128), learning_rate='constant',
-       learning_rate_init=0.001, max_iter=400, momentum=0.9,
+       hidden_layer_sizes=(), learning_rate='constant',
+       learning_rate_init=0.001, max_iter=max_iter, momentum=0.9,
        nesterovs_momentum=True, power_t=0.5, random_state=None,
        shuffle=True, solver='adam', tol=0.0001, validation_fraction=0.1,
        verbose=True, warm_start=False)
@@ -67,3 +69,6 @@ plt.title('Confusion Matrix')
 _ = plt.xticks(range(12), [lb for lb in labels.values()], rotation=90)
 _ = plt.yticks(range(12), [lb for lb in labels.values()])
 plt.show()
+
+from s_inspect import inspect_xnn
+inspect_xnn(model)

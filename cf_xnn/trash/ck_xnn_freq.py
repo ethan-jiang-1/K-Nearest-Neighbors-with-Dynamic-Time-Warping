@@ -20,7 +20,7 @@ parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
 import s_data_loader as data_loader
 # dt = data_loader.load_feature_time()
-dt = data_loader.load_feature()
+dt = data_loader.load_feature_freq()
 
 # Mapping table for classes
 labels = dt.labels
