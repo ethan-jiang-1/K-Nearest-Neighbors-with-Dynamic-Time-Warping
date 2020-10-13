@@ -11,6 +11,20 @@ import os, sys
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
+
+cpi_filename = "cp_xnn/cp_info.text"
+if not os.path.isfile(cpi_filename):
+    print("Error no cpi_filename {}".format(cpi_filename))
+    sys.exit(-1)
+
+with open(cpi_filename, 'r') as file:
+    test_num = int(file.readline().rstrip())
+    feature_num = int(file.readline().rstrip())
+    skip_ratio = int(file.readline().rstrip())
+    model_name = file.readline()
+
+print("CPI", test_num, feature_num, skip_ratio, model_name)
+
 import s_data_loader as data_loader
 # dt = data_loader.load_feature_time()
 dt = data_loader.load_feature()
@@ -21,26 +35,10 @@ x_train = dt.x_train
 y_train = dt.y_train
 x_test = dt.x_test
 y_test = dt.y_test
-
-
-skip_ratio = 10
 rx_train = x_train[::skip_ratio]
 ry_train = y_train[::skip_ratio]
 rx_test = x_test[::skip_ratio]
 ry_test = y_test[::skip_ratio]
-
-
-cpi_filename = "cp_xnn/cp_info.text"
-if not os.path.isfile(cpi_filename):
-    print("Error no cpi_filename {}".format(cpi_filename))
-    sys.exit(-1)
-
-with open(cpi_filename, 'r') as file:
-    test_num = int(file.readline().rstrip())
-    feature_num = int(file.readline().rstrip())
-    model_name = file.readline()
-
-print("CPI", test_num, feature_num, model_name)
 
 cpe_filename = "cp_xnn/MLPClassifier.class"
 if not os.path.isfile(cpe_filename):

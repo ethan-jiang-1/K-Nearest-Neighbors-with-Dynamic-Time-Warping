@@ -1,10 +1,3 @@
-# import numpy as np
-# import matplotlib.pyplot as plt
-# from sklearn.metrics import classification_report, confusion_matrix
-
-# from sklearn import svm
-# from sklearn.pipeline import make_pipeline
-# from sklearn.preprocessing import StandardScaler
 from sklearn.neural_network import MLPClassifier
 from sklearn_porter import Porter
 
@@ -14,7 +7,7 @@ parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
 import s_data_loader as data_loader
 # dt = data_loader.load_feature_time()
-dt = data_loader.load_feature()
+dt = data_loader.load_feature_freq()
 
 # Mapping table for classes
 labels = dt.labels
@@ -41,6 +34,10 @@ model = MLPClassifier(activation='relu', alpha=0.0001, batch_size='auto', beta_1
 
 model.fit(rx_train, ry_train)
 
+print("clean cp_xnn folder")
+import shutil
+if os.path.isdir("cp_xnn"):
+    shutil.rmtree("cp_xnn")
 if not os.path.isdir("cp_xnn"):
     os.mkdir("cp_xnn")
 if not os.path.isdir("cp_xnn/dat"):
@@ -60,6 +57,15 @@ if not os.path.isfile(cpm_filename):
     print("Error: no training model saved")
     sys.exit(0)
 
+print("compile java to executable class")
+import subprocess
+root_dir = os.getcwd()
+working_dir = root_dir + "/cp_xnn"
+os.chdir(working_dir)
+cmds = ["javac", "MLPClassifier.java"]
+stdout = subprocess.check_output(cmds)
+print(stdout)
+os.chdir(root_dir)
 
 print("prepare test dat (for predict)...")
 for i in range(0, len(rx_test)):
@@ -80,6 +86,7 @@ cpi_filename = "cp_xnn/cp_info.text"
 with open(cpi_filename, 'w+') as file:
     file.write("{}\n".format(len(rx_test)))
     file.write("{}\n".format(len(rx_test[0])))
+    file.write("{}\n".format(skip_ratio))
     file.write("LinearSVC\n")
 
 cpp_filename = "cp_xnn/pred_result.txt"
@@ -87,4 +94,4 @@ print("clean up predict file {}".format(cpp_filename))
 if os.path.isfile(cpp_filename):
     os.unlink(cpp_filename)
 
-print("please go to cp_xnn subfolder, and prepare executable: compile {} to class by javac".format(cpm_filename))
+print("the training and predict data are all saved in cp_xnn subfolder, run pred to see if java output prediction is ok")
