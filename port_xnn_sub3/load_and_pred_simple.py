@@ -25,7 +25,7 @@ y_test = dt.y_test
 ry_test = y_test[::skip_ratio]
 
 
-cpe_filename = "cp_std/MLPClassifierNew.class"
+cpe_filename = "cp_std/MLPClassifierSimple.class"
 if not os.path.isfile(cpe_filename):
     print("Error no cpe_filename {}".format(cpe_filename))
     sys.exit(-1)
@@ -48,7 +48,7 @@ for i in range(0, test_num, quick_skip_ratio):
     # ret, stdout = run_command(["java", "MLPClassifier"], nums, cwd=working_dir)
     ret = True
 
-    cmds = ["java", "MLPClassifierNew"]
+    cmds = ["java", "MLPClassifierSimple"]
     cmds += nums 
     stdout = subprocess.check_output(cmds)
     print(i, test_num, ret, stdout, ry_test[i]-1, cmds[1])
@@ -72,4 +72,4 @@ from s_confusion import print_confusion_report
 print_confusion_report(ry_pred, ry_test, labels)
 
 from s_confusion import plot_confusion
-plot_confusion(ry_pred, ry_test, labels, title="MLPClassifierNew")
+plot_confusion(ry_pred, ry_test, labels, title="MLPClassifierSimple")

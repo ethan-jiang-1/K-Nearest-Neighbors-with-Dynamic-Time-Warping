@@ -1,17 +1,17 @@
-class MLPClassifierNew {
+class MLPClassifierSimple {
 
     private enum Activation { IDENTITY, LOGISTIC, RELU, TANH, SOFTMAX }
 
-    private Activation _hidden;
-    private Activation _output;
-    private double[][] _network;
-    private int[] _layers;
+    //private Activation _hidden;
+    //private Activation _output;
+    //private double[][] _network;
+    //private int[] _layers;
     private double[][] _weights;
     private double[] _bias;
     private double[] _nt0;
-    private double[] _nt1;     
+    private double[] _nt1;
 
-    public MLPClassifierNew(String hidden, String output, int[] layers, double[][] weights, double[] bias) {
+    public MLPClassifierSimple(double[][] weights, double[] bias) {
         //this._hidden = Activation.valueOf(hidden.toUpperCase());
         //this._output = Activation.valueOf(output.toUpperCase());
 
@@ -26,15 +26,10 @@ class MLPClassifierNew {
         //this._nt0 = new double[weights.length]; //lenInputs
         //this._nt1 = new double[layers[0]]; //6
 
-        this._layers = layers;
         this._weights = weights; //lenInputs*6
         this._bias = bias; //6
 
         inspect_network("init");
-    }
-
-    public MLPClassifierNew(String hidden, String output, int neurons, double[][] weights, double[]bias) {
-        this(hidden, output, new int[] { neurons }, weights, bias);
     }
 
     private void inspect_network(String mark) {
@@ -120,7 +115,7 @@ class MLPClassifierNew {
         //this._network[1] = new double[_layers[0]];
 
         this._nt0 = neurons;
-        this._nt1 = new double[_layers[0]];
+        this._nt1 = new double[this._bias.length];
 
         inspect_network("predict_0");
         //for (int i = 0; i < this._network.length - 1; i++) 
@@ -206,13 +201,14 @@ class MLPClassifierNew {
     }
 
     public static void main(String[] args) {
+        // -----------------------
         int lenInputs = 347;
         int lenPreds = 6;
 
         double[] features = _get_features(lenInputs, args);
 
         // Parameters: layers (same)
-        int[] layers = {6};
+        //int[] layers = {6};
 
         // Parameters: weight (only 2 layers) 
         // proting notces: [][][] -> [][]
@@ -222,9 +218,11 @@ class MLPClassifierNew {
         // porting notice [][] -> []
         double[] bias = {1.3152365980051357, -0.15923970779190105, 3.314055895534349, -1.1437325839614996, -2.805225398656099, -0.5117385233805933};
 
-        if (lenPreds != layers[0]) {
-            System.out.println("Error: lenPreds not matched in layers");
-        }
+        // -------------------------------
+
+        //if (lenPreds != layers[0]) {
+        //    System.out.println("Error: lenPreds not matched in layers");
+        //}
         if (bias.length != lenPreds) {
             System.out.println("Error: lenPreds not matched in bias");
         }
@@ -233,7 +231,7 @@ class MLPClassifierNew {
         }
 
         // Prediction:
-        MLPClassifierNew clf = new MLPClassifierNew("relu", "softmax", layers, weights, bias);
+        MLPClassifierSimple clf = new MLPClassifierSimple(weights, bias);
         
         int estimation_1 = clf.predict(features);
         System.out.println(estimation_1);
