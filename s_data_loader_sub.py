@@ -41,9 +41,7 @@ class DataSrc(object):
         self.x_test = []
         self.y_test = []
 
-        self._init_mark_sub1()
-        self._init_mark_sub2()        
-        self._init_mark_sub3()
+        self._init_mark_sub()
 
     def load(self):
         self._load_from_file()
@@ -99,12 +97,8 @@ class DataSrc(object):
     def _extract_sub(self, tmp):
         xtmp = []
         xmask = None
-        if self.dt_type == "feature_sub1":
-            xmask = self.mask_sub1
-        elif self.dt_type == "feature_sub2":
-            xmask = self.mask_sub2        
-        elif self.dt_type == "feature_sub3":
-            xmask = self.mask_sub3
+        if self.dt_type.find("_sub") != -1:
+            xmask = self.mask_sub
         if xmask is not None:
             for i in range(0, len(tmp)):
                 if i in xmask:
@@ -112,47 +106,23 @@ class DataSrc(object):
             return xtmp
         return tmp
 
-    def _init_mark_sub1(self):
-        self.mask_sub1 = []
-        mask_sub = self.mask_sub1        
-        mask_filename = "fsub/sub1_features.txt"
+    def _init_mark_sub(self):
+        self.mask_sub = []
+        mask_sub = self.mask_sub
+        mask_filename = "fsub/{}.txt".format(self.dt_type)
+
         sf = open(data_path(mask_filename), 'r')
         if sf is not None:
             for fe in sf:
-                nm = fe.rstrip('\n').split(' ')
+                fe = fe.rstrip('\n')
+                nm = fe.split(' ')
                 if len(nm) == 2:
                     try:
                         mask_sub.append(int(nm[0]))
-                    except:
+                    except Exception:
+                        print("skip {}".format(fe))
                         pass
-        
-    def _init_mark_sub2(self):
-        self.mask_sub2 = []
-        mask_sub = self.mask_sub2
-        mask_filename = "fsub/sub2_features.txt"        
-        sf = open(data_path(mask_filename), 'r')
-        if sf is not None:
-            for fe in sf:
-                nm = fe.rstrip('\n').split(' ')
-                if len(nm) == 2:
-                    try:
-                        mask_sub.append(int(nm[0]))
-                    except:
-                        pass
-        
-    def _init_mark_sub3(self):
-        self.mask_sub3 = []
-        mask_sub = self.mask_sub3
-        mask_filename = "fsub/sub3_features.txt"        
-        sf = open(data_path(mask_filename), 'r')
-        if sf is not None:
-            for fe in sf:
-                nm = fe.rstrip('\n').split(' ')
-                if len(nm) == 2:
-                    try:
-                        mask_sub.append(int(nm[0]))
-                    except:
-                        pass
+            sf.close()
 
 def _load(dt_type):
     print("load data...{}".format(dt_type))
@@ -173,3 +143,6 @@ def load_feature_sub2():
 
 def load_feature_sub3():
     return _load("feature_sub3")
+
+def load_feature_sub4():
+    return _load("feature_sub4")

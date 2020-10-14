@@ -1,15 +1,15 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.neural_network import MLPClassifier
 
 import os, sys
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
-import s_data_loader as data_loader
-# dt = data_loader.load_feature_time()
-dt = data_loader.load_feature()
+import s_data_loader_sub as data_loader
+dt = data_loader.load_feature_sub4()
+# dt = data_loader.load_feature()
 
 # Mapping table for classes
 labels = dt.labels
@@ -23,7 +23,7 @@ ry_train = y_train
 rx_test = x_test
 ry_test = y_test
 
-max_iter = 400
+max_iter = 3200
 
 
 model = MLPClassifier(activation='relu', alpha=0.0001, batch_size='auto', beta_1=0.9,
@@ -31,7 +31,7 @@ model = MLPClassifier(activation='relu', alpha=0.0001, batch_size='auto', beta_1
        hidden_layer_sizes=(), learning_rate='constant',
        learning_rate_init=0.001, max_iter=max_iter, momentum=0.9,
        nesterovs_momentum=True, power_t=0.5, random_state=None,
-       shuffle=True, solver='adam', tol=0.0001, validation_fraction=0.1,
+       shuffle=True, solver='lbfgs', tol=0.00001, validation_fraction=0.1,
        verbose=True, warm_start=False)
 
 model.fit(rx_train, ry_train)
