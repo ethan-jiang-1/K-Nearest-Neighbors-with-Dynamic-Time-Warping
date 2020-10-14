@@ -36,7 +36,7 @@ root_dir = os.getcwd()
 working_dir = root_dir + "/cp_std"
 os.chdir(working_dir)
 
-quick_skip_ratio = 50
+quick_skip_ratio = 20
 
 label_raw = []
 for i in range(0, test_num, quick_skip_ratio):
