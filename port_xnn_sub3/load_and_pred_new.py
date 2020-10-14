@@ -16,7 +16,7 @@ with open(cpi_filename, 'r') as file:
     skip_ratio = int(file.readline().rstrip())
     model_name = file.readline()
 
-print("CPI", test_num, feature_num, skip_ratio, model_name)
+print("CPI", cpi_filename, test_num, feature_num, skip_ratio, model_name)
 
 import s_data_loader as data_loader
 dt = data_loader.load_feature()
@@ -36,7 +36,7 @@ root_dir = os.getcwd()
 working_dir = root_dir + "/cp_std"
 os.chdir(working_dir)
 
-quick_skip_ratio = 10
+quick_skip_ratio = 50
 
 label_raw = []
 for i in range(0, test_num, quick_skip_ratio):
@@ -51,7 +51,7 @@ for i in range(0, test_num, quick_skip_ratio):
     cmds = ["java", "MLPClassifierNew"]
     cmds += nums 
     stdout = subprocess.check_output(cmds)
-    print(i, test_num, ret, stdout, ry_test[i]-1)
+    print(i, test_num, ret, stdout, ry_test[i]-1, cmds[1])
     if ret:
         num_result = stdout.decode("utf-8").strip()
         if int(num_result) >= 0:
@@ -72,4 +72,4 @@ from s_confusion import print_confusion_report
 print_confusion_report(ry_pred, ry_test, labels)
 
 from s_confusion import plot_confusion
-plot_confusion(ry_pred, ry_test, labels)
+plot_confusion(ry_pred, ry_test, labels, title="MLPClassifierNew")

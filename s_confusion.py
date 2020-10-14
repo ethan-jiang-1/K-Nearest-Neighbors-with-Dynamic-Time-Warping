@@ -6,10 +6,15 @@ def print_confusion_report(ry_pred, ry_test, labels):
     print(classification_report(ry_pred, ry_test, target_names=[lb for lb in labels.values()]))
 
 
-def plot_confusion(ry_pred, ry_test, labels):
+def plot_confusion(ry_pred, ry_test, labels, title=None):
     conf_mat = confusion_matrix(ry_pred, ry_test)
     plt.style.use('bmh')
-    fig = plt.figure(figsize=(6,6))
+    if title is not None:
+        fig_num = title
+    else:
+        fig_num = "result"
+
+    fig = plt.figure(figsize=(6,6), num=fig_num)
     # width = np.shape(conf_mat)[1]
     # height = np.shape(conf_mat)[0]
 

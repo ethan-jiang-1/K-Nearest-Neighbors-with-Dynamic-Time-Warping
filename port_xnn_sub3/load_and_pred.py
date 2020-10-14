@@ -16,7 +16,7 @@ with open(cpi_filename, 'r') as file:
     skip_ratio = int(file.readline().rstrip())
     model_name = file.readline()
 
-print("CPI", test_num, feature_num, skip_ratio, model_name)
+print("CPI", cpi_filename, test_num, feature_num, skip_ratio, model_name)
 
 import s_data_loader as data_loader
 dt = data_loader.load_feature()
