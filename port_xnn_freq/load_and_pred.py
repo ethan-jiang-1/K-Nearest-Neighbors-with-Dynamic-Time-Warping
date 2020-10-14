@@ -1,7 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.metrics import classification_report, confusion_matrix
-
 import os, sys
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
@@ -22,7 +19,7 @@ with open(cpi_filename, 'r') as file:
 print("CPI", test_num, feature_num, skip_ratio, model_name)
 
 import s_data_loader as data_loader
-dt = data_loader.load_feature_freq()
+dt = data_loader.load_feature()
 labels = dt.labels
 y_test = dt.y_test
 ry_test = y_test[::skip_ratio]
@@ -39,8 +36,10 @@ root_dir = os.getcwd()
 working_dir = root_dir + "/cp_xnn"
 os.chdir(working_dir)
 
+quick_skip_ratio = 10
+
 label_raw = []
-for i in range(0, test_num):
+for i in range(0, test_num, quick_skip_ratio):
     tdat = "dat/{}_{:04d}.tdat".format(feature_num, i)
     with open(tdat, "r") as tdatf:
         line = tdatf.readline()
@@ -66,25 +65,11 @@ for i in range(0, test_num):
 
 os.chdir(root_dir)
 
-label = np.array(label_raw)
+ry_pred = np.array(label_raw)
+ry_test = ry_test[::quick_skip_ratio]
 
-print(classification_report(label, ry_test, target_names=[lb for lb in labels.values()]))
+from s_confusion import print_confusion_report
+print_confusion_report(ry_pred, ry_test, labels)
 
-conf_mat = confusion_matrix(label, ry_test)
-
-plt.style.use('bmh')
-fig = plt.figure(figsize=(6,6))
-width = np.shape(conf_mat)[1]
-height = np.shape(conf_mat)[0]
-
-res = plt.imshow(np.array(conf_mat), cmap=plt.cm.summer, interpolation='nearest')
-for i, row in enumerate(conf_mat):
-    for j, c in enumerate(row):
-        if c > 0:
-            plt.text(j-.2, i+.1, c, fontsize=16)
-
-cb = fig.colorbar(res)
-plt.title('Confusion Matrix')
-_ = plt.xticks(range(6), [lb for lb in labels.values()], rotation=90)
-_ = plt.yticks(range(6), [lb for lb in labels.values()])
-plt.show()
+from s_confusion import plot_confusion
+plot_confusion(ry_pred, ry_test, labels)

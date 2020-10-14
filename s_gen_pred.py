@@ -71,7 +71,8 @@ def _clean_pred_result():
 def gen_pred(model, rx_test, skip_ratio, loc_file):
     org_dir = os.getcwd()
     root_dir = os.path.dirname(loc_file)
-    os.chdir(root_dir)
+    if len(root_dir) != 0:
+        os.chdir(root_dir)
 
     _clean_cp_xnn()
     _save_model_to_java(model)
