@@ -23,18 +23,18 @@
 23 tBodyAcc-entropy()-X
 24 tBodyAcc-entropy()-Y
 25 tBodyAcc-entropy()-Z
-26 tBodyAcc-arCoeff()-X,1
-27 tBodyAcc-arCoeff()-X,2
-28 tBodyAcc-arCoeff()-X,3
-29 tBodyAcc-arCoeff()-X,4
-30 tBodyAcc-arCoeff()-Y,1
-31 tBodyAcc-arCoeff()-Y,2
-32 tBodyAcc-arCoeff()-Y,3
-33 tBodyAcc-arCoeff()-Y,4
-34 tBodyAcc-arCoeff()-Z,1
-35 tBodyAcc-arCoeff()-Z,2
-36 tBodyAcc-arCoeff()-Z,3
-37 tBodyAcc-arCoeff()-Z,4
+    26 tBodyAcc-arCoeff()-X,1
+    27 tBodyAcc-arCoeff()-X,2
+    28 tBodyAcc-arCoeff()-X,3
+    29 tBodyAcc-arCoeff()-X,4
+    30 tBodyAcc-arCoeff()-Y,1
+    31 tBodyAcc-arCoeff()-Y,2
+    32 tBodyAcc-arCoeff()-Y,3
+    33 tBodyAcc-arCoeff()-Y,4
+    34 tBodyAcc-arCoeff()-Z,1
+    35 tBodyAcc-arCoeff()-Z,2
+    36 tBodyAcc-arCoeff()-Z,3
+    37 tBodyAcc-arCoeff()-Z,4
 38 tBodyAcc-correlation()-X,Y
 39 tBodyAcc-correlation()-X,Z
 40 tBodyAcc-correlation()-Y,Z
@@ -63,18 +63,18 @@
 63 tGravityAcc-entropy()-X
 64 tGravityAcc-entropy()-Y
 65 tGravityAcc-entropy()-Z
-66 tGravityAcc-arCoeff()-X,1
-67 tGravityAcc-arCoeff()-X,2
-68 tGravityAcc-arCoeff()-X,3
-69 tGravityAcc-arCoeff()-X,4
-70 tGravityAcc-arCoeff()-Y,1
-71 tGravityAcc-arCoeff()-Y,2
-72 tGravityAcc-arCoeff()-Y,3
-73 tGravityAcc-arCoeff()-Y,4
-74 tGravityAcc-arCoeff()-Z,1
-75 tGravityAcc-arCoeff()-Z,2
-76 tGravityAcc-arCoeff()-Z,3
-77 tGravityAcc-arCoeff()-Z,4
+    66 tGravityAcc-arCoeff()-X,1
+    67 tGravityAcc-arCoeff()-X,2
+    68 tGravityAcc-arCoeff()-X,3
+    69 tGravityAcc-arCoeff()-X,4
+    70 tGravityAcc-arCoeff()-Y,1
+    71 tGravityAcc-arCoeff()-Y,2
+    72 tGravityAcc-arCoeff()-Y,3
+    73 tGravityAcc-arCoeff()-Y,4
+    74 tGravityAcc-arCoeff()-Z,1
+    75 tGravityAcc-arCoeff()-Z,2
+    76 tGravityAcc-arCoeff()-Z,3
+    77 tGravityAcc-arCoeff()-Z,4
 78 tGravityAcc-correlation()-X,Y
 79 tGravityAcc-correlation()-X,Z
 80 tGravityAcc-correlation()-Y,Z
@@ -103,18 +103,18 @@
 103 tBodyAccJerk-entropy()-X
 104 tBodyAccJerk-entropy()-Y
 105 tBodyAccJerk-entropy()-Z
-106 tBodyAccJerk-arCoeff()-X,1
-107 tBodyAccJerk-arCoeff()-X,2
-108 tBodyAccJerk-arCoeff()-X,3
-109 tBodyAccJerk-arCoeff()-X,4
-110 tBodyAccJerk-arCoeff()-Y,1
-111 tBodyAccJerk-arCoeff()-Y,2
-112 tBodyAccJerk-arCoeff()-Y,3
-113 tBodyAccJerk-arCoeff()-Y,4
-114 tBodyAccJerk-arCoeff()-Z,1
-115 tBodyAccJerk-arCoeff()-Z,2
-116 tBodyAccJerk-arCoeff()-Z,3
-117 tBodyAccJerk-arCoeff()-Z,4
+    106 tBodyAccJerk-arCoeff()-X,1
+    107 tBodyAccJerk-arCoeff()-X,2
+    108 tBodyAccJerk-arCoeff()-X,3
+    109 tBodyAccJerk-arCoeff()-X,4
+    110 tBodyAccJerk-arCoeff()-Y,1
+    111 tBodyAccJerk-arCoeff()-Y,2
+    112 tBodyAccJerk-arCoeff()-Y,3
+    113 tBodyAccJerk-arCoeff()-Y,4
+    114 tBodyAccJerk-arCoeff()-Z,1
+    115 tBodyAccJerk-arCoeff()-Z,2
+    116 tBodyAccJerk-arCoeff()-Z,3
+    117 tBodyAccJerk-arCoeff()-Z,4
 118 tBodyAccJerk-correlation()-X,Y
 119 tBodyAccJerk-correlation()-X,Z
 120 tBodyAccJerk-correlation()-Y,Z
@@ -207,10 +207,10 @@
 207 tBodyAccMag-energy()
 208 tBodyAccMag-iqr()
 209 tBodyAccMag-entropy()
-210 tBodyAccMag-arCoeff()1
-211 tBodyAccMag-arCoeff()2
-212 tBodyAccMag-arCoeff()3
-213 tBodyAccMag-arCoeff()4
+    210 tBodyAccMag-arCoeff()1
+    211 tBodyAccMag-arCoeff()2
+    212 tBodyAccMag-arCoeff()3
+    213 tBodyAccMag-arCoeff()4
 214 tGravityAccMag-mean()
 215 tGravityAccMag-std()
 216 tGravityAccMag-mad()
@@ -220,10 +220,10 @@
 220 tGravityAccMag-energy()
 221 tGravityAccMag-iqr()
 222 tGravityAccMag-entropy()
-223 tGravityAccMag-arCoeff()1
-224 tGravityAccMag-arCoeff()2
-225 tGravityAccMag-arCoeff()3
-226 tGravityAccMag-arCoeff()4
+    223 tGravityAccMag-arCoeff()1
+    224 tGravityAccMag-arCoeff()2
+    225 tGravityAccMag-arCoeff()3
+    226 tGravityAccMag-arCoeff()4
 227 tBodyAccJerkMag-mean()
 228 tBodyAccJerkMag-std()
 229 tBodyAccJerkMag-mad()
@@ -233,10 +233,10 @@
 233 tBodyAccJerkMag-energy()
 234 tBodyAccJerkMag-iqr()
 235 tBodyAccJerkMag-entropy()
-236 tBodyAccJerkMag-arCoeff()1
-237 tBodyAccJerkMag-arCoeff()2
-238 tBodyAccJerkMag-arCoeff()3
-239 tBodyAccJerkMag-arCoeff()4
+    236 tBodyAccJerkMag-arCoeff()1
+    237 tBodyAccJerkMag-arCoeff()2
+    238 tBodyAccJerkMag-arCoeff()3
+    239 tBodyAccJerkMag-arCoeff()4
     240 tBodyGyroMag-mean()
     241 tBodyGyroMag-std()
     242 tBodyGyroMag-mad()
