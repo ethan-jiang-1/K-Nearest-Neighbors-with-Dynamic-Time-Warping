@@ -9,27 +9,6 @@ from s_data_loader import data_path
 
 plt.style.use('bmh')
 
-def butter_bandpass(lowcut, highcut, fs, order=5):
-    nyq = 0.5 * fs
-    low = lowcut / nyq
-    high = highcut / nyq
-    b, a = butter(order, [low, high], btype='band')
-    return b, a
-
-
-def butter_bandpass_filter(data, lowcut, highcut, fs, order=3):
-    b, a = butter_bandpass(lowcut, highcut, fs, order=order)
-    y = lfilter(b, a, data)
-    return y
-
-
-def filter_raw(acc_raw):
-    lowcut = 10.0
-    highcut = 1000.0
-    fs = 50.0 * 128  # 128 points /(1/50) # samples(total points) / T (total time length)
-    filter_raw = butter_bandpass_filter(acc_raw, lowcut, highcut, fs, order=3)
-    return filter_raw
-
 
 x_acc_raw_file = open(data_path('train/InertialSignals/body_acc_x_train.txt'), 'r')
 y_acc_raw_file = open(data_path('train/InertialSignals/body_acc_y_train.txt'), 'r')
@@ -66,7 +45,7 @@ nsamples = 128
 T = nsamples/fs
 t = np.linspace(0, T, nsamples, endpoint=False)
 plt.figure(figsize=(16,9))
-for i, r in enumerate([190, 191, 192, 193, 194, 195]):
+for i, r in enumerate([0, 1, 2, 3, 4, 5]):
     ndx = r
     label_pre = labels[y_train[ndx]]
     color = colors[i]
