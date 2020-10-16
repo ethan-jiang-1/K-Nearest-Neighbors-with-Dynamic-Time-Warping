@@ -22,7 +22,7 @@ ry_train = y_train[::skip_ratio]
 rx_test = x_test[::skip_ratio]
 ry_test = y_test[::skip_ratio]
 
-max_iter = 200
+max_iter = 800
 tol = 0.0001
 
 model = MLPClassifier(activation='relu', alpha=0.0001, batch_size='auto', beta_1=0.9,
@@ -31,8 +31,11 @@ model = MLPClassifier(activation='relu', alpha=0.0001, batch_size='auto', beta_1
        learning_rate_init=0.001, max_iter=max_iter, momentum=0.9,
        nesterovs_momentum=True, power_t=0.5, random_state=None,
        shuffle=True, solver='lbfgs', tol=tol, validation_fraction=0.1,
-       verbose=True, warm_start=False)
+       verbose=False, warm_start=False)
 
+
+print("training (all) iter {} tol {}".format(max_iter, tol))
+print("start training...")
 model.fit(rx_train, ry_train)
 ry_pred=model.predict(rx_test)
 

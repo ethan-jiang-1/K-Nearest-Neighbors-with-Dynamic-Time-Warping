@@ -98,11 +98,17 @@ class DataSrc(object):
                 self.x_test.append(tmp)
 
 
+def _dh_summary(dh):
+    print("train X", dh.x_train.shape, "Y", dh.y_train.shape)
+    print("test X", dh.x_test.shape, "Y", dh.y_test.shape)
+    print("feautes", dh.x_train.shape[1])
+
 def _load(dt_type):
     print("load data...{}".format(dt_type))
     ds = DataSrc(dt_type)
     dh = ds.load()
     print("load data done {}.".format(dt_type))
+    _dh_summary(dh)
     return dh
 
 

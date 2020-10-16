@@ -263,6 +263,7 @@
     263 tBodyGyroJerkMag-arCoeff()2
     264 tBodyGyroJerkMag-arCoeff()3
     265 tBodyGyroJerkMag-arCoeff()4
+
 266 fBodyAcc-mean()-X
 267 fBodyAcc-mean()-Y
 268 fBodyAcc-mean()-Z

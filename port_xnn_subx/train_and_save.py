@@ -33,6 +33,7 @@ model = MLPClassifier(activation='relu', alpha=0.0001, batch_size='auto', beta_1
        shuffle=True, solver='lbfgs', tol=tol, validation_fraction=0.1,
        verbose=False, warm_start=False)
 
+print("training (subx) iter {} tol {}".format(max_iter, tol))
 print("start training...")
 model.fit(rx_train, ry_train)
 print("trning finished, start to predict...")
