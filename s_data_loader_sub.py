@@ -58,8 +58,10 @@ class DataSrc(object):
         self.y_test_file = open(data_path('test/y_test.txt'), 'r')
      
         # Loop through datasets
+        print("load y_train data")
         for y in self.y_train_file:
             self.y_train.append(int(y.rstrip('\n')))
+        print("load y_test data")
         for y in self.y_test_file:
             self.y_test.append(int(y.rstrip('\n')))
         self.y_test = np.array(self.y_test)
@@ -79,13 +81,15 @@ class DataSrc(object):
         pass
 
     def _transfrim_trim(self):
-        #trunk or not 
+        #trunk or not
+        print("transfrim x_train_file") 
         for x in self.x_train_file:
             tmp = [float(ts) for ts in x.split()]
             if self.dt_type.find("_sub") != -1:
                 self.x_train.append(self._extract_sub(tmp))
             else:
                 self.x_train.append(tmp)
+        print("transfrim x_test_file") 
         for x in self.x_test_file:
             #x_test.append([float(ts) for ts in x.split()])
             tmp = [float(ts) for ts in x.split()]
@@ -113,6 +117,7 @@ class DataSrc(object):
 
         sf = open(data_path(mask_filename), 'r')
         print("### Figure out how to filter out features for {}".format(self.dt_type))
+        keep_features = []
         if sf is not None:
             feature_kept = 0
             feature_total = 0
@@ -123,6 +128,7 @@ class DataSrc(object):
                     if len(nm) == 2:
                         try:
                             mask_sub.append(int(nm[0]))
+                            keep_features.append(nm[1])
                             feature_kept += 1
                         except Exception:
                             print("skip {}".format(fe))
@@ -132,6 +138,7 @@ class DataSrc(object):
                     feature_total += 1
             sf.close()
             print("### Keep {} out of {} features for {}".format(feature_kept, feature_total, self.dt_type))
+            print("feature kept: ", keep_features)
 
 def _load(dt_type):
     print("load data...{}".format(dt_type))
