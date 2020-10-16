@@ -112,17 +112,26 @@ class DataSrc(object):
         mask_filename = "fsub/{}.txt".format(self.dt_type)
 
         sf = open(data_path(mask_filename), 'r')
+        print("### Figure out how to filter out features for {}".format(self.dt_type))
         if sf is not None:
+            feature_kept = 0
+            feature_total = 0
             for fe in sf:
                 fe = fe.rstrip('\n')
-                nm = fe.split(' ')
-                if len(nm) == 2:
-                    try:
-                        mask_sub.append(int(nm[0]))
-                    except Exception:
+                if len(fe) > 0:
+                    nm = fe.split(' ')
+                    if len(nm) == 2:
+                        try:
+                            mask_sub.append(int(nm[0]))
+                            feature_kept += 1
+                        except Exception:
+                            print("skip {}".format(fe))
+                            pass
+                    else:
                         print("skip {}".format(fe))
-                        pass
+                    feature_total += 1
             sf.close()
+            print("### Keep {} out of {} features for {}".format(feature_kept, feature_total, self.dt_type))
 
 def _load(dt_type):
     print("load data...{}".format(dt_type))
@@ -146,3 +155,6 @@ def load_feature_sub3():
 
 def load_feature_sub4():
     return _load("feature_sub4")
+
+def load_feature_subx():
+    return _load("feature_subx")

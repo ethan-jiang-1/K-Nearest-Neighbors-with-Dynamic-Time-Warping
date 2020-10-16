@@ -1,9 +1,22 @@
 from sklearn.metrics import classification_report,confusion_matrix
 import matplotlib.pyplot as plt
 import numpy as np
+from sklearn import metrics
+
 
 def print_confusion_report(ry_pred, ry_test, labels):
+    print("\n")
+    print("Precision:\t {:.4f}%".format(
+        100 * metrics.precision_score(ry_test, ry_pred, average="weighted")))
+    print("Recall:\t {:.4f}%".format(
+        100 * metrics.recall_score(ry_test, ry_pred, average="weighted")))
+    print("f1_score:\t {:.4f}%".format(
+        100 * metrics.f1_score(ry_test, ry_pred, average="weighted")))
+
+
+    print("\n")
     print(classification_report(ry_pred, ry_test, target_names=[lb for lb in labels.values()]))
+    print("\n")
 
 
 def plot_confusion(ry_pred, ry_test, labels, title=None):

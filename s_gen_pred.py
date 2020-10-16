@@ -2,7 +2,6 @@ import os
 import sys
 import shutil
 import subprocess
-from sklearn_porter import Porter
 
 
 def _clean_cp_xnn():
@@ -15,6 +14,7 @@ def _clean_cp_xnn():
         os.mkdir("cp_xnn/dat")
 
 def _save_model_to_java(model):
+    from sklearn_porter import Porter
     cpm_filename = "cp_xnn/MLPClassifier.java"
     print("preper new trained model  {}".format(cpm_filename))
     if os.path.isfile(cpm_filename):
@@ -68,7 +68,15 @@ def _clean_pred_result():
     if os.path.isfile(cpp_filename):
         os.unlink(cpp_filename)
 
+
+def _my_warn(*args, **kwargs):
+    pass
+
+
 def gen_pred(model, rx_test, skip_ratio, loc_file):
+    import warnings
+    warnings.warn = _my_warn
+
     org_dir = os.getcwd()
     root_dir = os.path.dirname(loc_file)
     if len(root_dir) != 0:
